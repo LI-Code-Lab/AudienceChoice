@@ -1,4 +1,4 @@
-# audience_choice
+# Audience Choice
 
 An application for choosing songs from a setlist. 
 
