@@ -71,6 +71,13 @@ class SongScreenState extends State<SongScreen>{
       brightness: Brightness.light,
       elevation: 0.0,
       title: Text('Song List'),
+      actions: <Widget>[
+        new FlatButton(
+          child: new Text("Poll", style: new TextStyle(color: kACBackgroundWhite)),
+          onPressed: (){
+
+          },)
+      ],
     );
   }
 
