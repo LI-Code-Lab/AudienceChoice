@@ -30,27 +30,33 @@ class SongCellState extends State<SongCell> {
           children: <Widget>[
             new Row(
               children: <Widget>[
-                new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text(title, style: new TextStyle(color: kACPrimaryText, fontSize: 16.0))
-                  ],
+                Container(
+                  width: 300.0,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Text(title, style: new TextStyle(color: kACPrimaryText, fontSize: 16.0))
+                    ],
+                  ),
                 ),
-                new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    new CupertinoSwitch(
-                      value: _vote,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _vote = value;
-                        });
-                      },
-                      activeColor: kACBlue800,
-                    )
-                  ],
+                Container(
+                  width: 50.0,
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      new CupertinoSwitch(
+                        value: _vote,
+                        onChanged: (bool value) {
+                          setState(() {
+                            _vote = value;
+                          });
+                        },
+                        activeColor: kACGreen400,
+                      )
+                    ],
+                  ),
                 )
               ],
             )

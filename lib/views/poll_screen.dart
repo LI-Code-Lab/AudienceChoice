@@ -38,7 +38,7 @@ class PollScreenState extends State<PollScreen>{
             onPressed: null,
             child: new PollCell(
                 titles[index]),
-            padding: new EdgeInsets.all(4.0),
+            padding: new EdgeInsets.all(0.0),
           );
         });
   }

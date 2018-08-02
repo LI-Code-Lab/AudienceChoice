@@ -30,7 +30,7 @@ class PollCellState extends State<PollCell>{
             new Row(
               children: <Widget>[
                 Container(
-                  width: 275.0,
+                  width: 300.0,
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,

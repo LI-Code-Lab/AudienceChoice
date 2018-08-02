@@ -5,7 +5,7 @@ const kACBlue200 = const Color(0xFF90caf9);
 const kACBlue400 = const Color(0xFF42a5f5);
 const kACBlue600 = const Color(0xFF1e88e5);
 const kACBlue800 = const Color(0xFF1565c0);
-const kACYellow400 = const Color(0xFFffee58);
+const kACGreen400 = const Color(0xFF66bb6a);
 
 const kACErrorRed = const Color(0xFFC5032B);
 
