@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
 import 'song_cell.dart';
+import 'poll_screen.dart';
 
 class SongScreen extends StatefulWidget{
   @override
@@ -100,6 +101,10 @@ class SongScreenState extends State<SongScreen>{
                 child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PollScreen()));
                 },
               )
             ],
