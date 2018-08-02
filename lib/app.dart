@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audience_choice/views/tap_screen.dart';
 
 class App extends StatefulWidget{
   @override
@@ -14,6 +15,8 @@ class AppState extends State<App>{
   }
 
   Widget _buildApp(){
-
+    return new MaterialApp(
+      home: TapScreen(),
+    );
   }
 }

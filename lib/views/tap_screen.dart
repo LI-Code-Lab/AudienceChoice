@@ -22,10 +22,13 @@ class TapScreenState extends State<TapScreen>{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Text("Click to choose your song!", style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),)
+            new Text("Click to choose your song!", style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+            new FlatButton(onPressed: (){
+
+            }, child: new Text("Click"))
           ],
         ),
       ),
-    )
+    );
   }
 }
