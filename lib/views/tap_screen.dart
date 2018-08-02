@@ -15,18 +15,20 @@ class TapScreenState extends State<TapScreen>{
   }
 
   Widget _buildTapScreen(){
-    return new Container(
-      padding: EdgeInsets.all(16.0),
-      child: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Text("Click to choose your song!", style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-            new FlatButton(onPressed: (){
+    return Scaffold(
+      body: new Container(
+        padding: EdgeInsets.all(16.0),
+        child: new Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Text("Click to choose your song!", style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+              new FlatButton(onPressed: (){
 
-            }, child: new Text("Click"))
-          ],
+              }, child: new Text("Click"))
+            ],
+          ),
         ),
       ),
     );
