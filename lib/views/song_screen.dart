@@ -11,9 +11,8 @@ class SongScreen extends StatefulWidget{
 
 class SongScreenState extends State<SongScreen>{
 
-  final listCount = 1;
-  final titles = ["Song Title"];
-
+  final listCount = 10;
+  final titles = ["Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title"];
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +29,13 @@ class SongScreenState extends State<SongScreen>{
   }
 
   Widget _buildSongList(){
-    return Expanded(
-      child: new ListView.builder(
-          itemCount: listCount,
-          itemExtent: 125.0,
-          itemBuilder: (context, index) {
-            return new FlatButton(
-              onPressed: () {
-                //navigate to next screen
+    return new ListView.builder(
+        itemCount: listCount,
+        itemExtent: 65.0,
+        itemBuilder: (context, index) {
+          return new FlatButton(
+            onPressed: () {
+              //navigate to next screen
 //                if(index == 0){
 //                  Navigator.push(
 //                      context,
@@ -53,13 +51,12 @@ class SongScreenState extends State<SongScreen>{
 //                if(index == 2){
 //                  launch(phoneNumber);
 //                }
-              },
-              child: new SongCell(
-                  titles[index] + " " + index.toString()),
-              padding: new EdgeInsets.all(0.0),
-            );
-          }),
-    );
+            },
+            child: new SongCell(
+                titles[index] + " " + index.toString()),
+            padding: new EdgeInsets.all(0.0),
+          );
+        });
   }
 
   Widget _buildAppBar(){
