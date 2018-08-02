@@ -76,8 +76,11 @@ class SongScreenState extends State<SongScreen>{
         new FlatButton(
           child: new Text("Poll", style: new TextStyle(color: kACBackgroundWhite)),
           onPressed: (){
-
-          },)
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PollScreen()));
+          })
       ],
     );
   }
@@ -101,10 +104,6 @@ class SongScreenState extends State<SongScreen>{
                 child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PollScreen()));
                 },
               )
             ],

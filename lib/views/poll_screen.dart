@@ -30,19 +30,17 @@ class PollScreenState extends State<PollScreen>{
   }
 
   Widget _buildSongList(){
-    return Expanded(
-      child: new ListView.builder(
-          itemCount: listCount,
-          itemExtent: 65.0,
-          itemBuilder: (context, index) {
-            return new FlatButton(
-              onPressed: null,
-              child: new PollCell(
-                  titles[index]),
-              padding: new EdgeInsets.all(0.0),
-            );
-          }),
-    );
+    return new ListView.builder(
+        itemCount: listCount,
+        itemExtent: 65.0,
+        itemBuilder: (context, index) {
+          return new FlatButton(
+            onPressed: null,
+            child: new PollCell(
+                titles[index]),
+            padding: new EdgeInsets.all(4.0),
+          );
+        });
   }
 
   Widget _buildAppBar(){
