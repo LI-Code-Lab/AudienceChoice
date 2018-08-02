@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
 import "package:audience_choice/views/poll_cell.dart";
+import 'settings_screen.dart';
 
 class PollScreen extends StatefulWidget{
   @override
@@ -52,7 +53,10 @@ class PollScreenState extends State<PollScreen>{
         new FlatButton(
           child: new Text("Settings", style: new TextStyle(color: kACBackgroundWhite)),
           onPressed: (){
-
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SettingsScreen()));
           },)
       ],
     );

@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d62de9b6-8a55-4dab-8d88-69a7ace419da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/app.dart" afterPath="$PROJECT_DIR$/lib/app.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/models/colors.dart" afterPath="$PROJECT_DIR$/lib/models/colors.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/views/poll_cell.dart" afterPath="$PROJECT_DIR$/lib/views/poll_cell.dart" />
       <change beforePath="$PROJECT_DIR$/lib/views/poll_screen.dart" afterPath="$PROJECT_DIR$/lib/views/poll_screen.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/views/song_cell.dart" afterPath="$PROJECT_DIR$/lib/views/song_cell.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -37,8 +32,8 @@
       <file leaf-file-name="song_screen.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/views/song_screen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="42" column="31" lean-forward="true" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+            <state relative-caret-position="246">
+              <caret line="78" column="12" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="81" selection-end-column="56" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -49,8 +44,8 @@
       <file leaf-file-name="poll_screen.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/views/poll_screen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+            <state relative-caret-position="224">
+              <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -58,11 +53,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="poll_cell.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="poll_cell.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/views/poll_cell.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="32" column="28" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings_screen.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/views/settings_screen.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -118,8 +125,9 @@
         <option value="$PROJECT_DIR$/lib/models/colors.dart" />
         <option value="$PROJECT_DIR$/lib/app.dart" />
         <option value="$PROJECT_DIR$/lib/views/song_cell.dart" />
-        <option value="$PROJECT_DIR$/lib/views/poll_screen.dart" />
         <option value="$PROJECT_DIR$/lib/views/poll_cell.dart" />
+        <option value="$PROJECT_DIR$/lib/views/poll_screen.dart" />
+        <option value="$PROJECT_DIR$/lib/views/settings_screen.dart" />
       </list>
     </option>
   </component>
@@ -366,16 +374,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/song_screen.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="42" column="31" lean-forward="true" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/colors.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -404,20 +402,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/poll_cell.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/song_screen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="78" column="12" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="81" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/views/poll_screen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+        <state relative-caret-position="224">
+          <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/poll_cell.dart">
+    <entry file="file://$PROJECT_DIR$/lib/views/settings_screen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="32" column="28" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+        <state relative-caret-position="181">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
