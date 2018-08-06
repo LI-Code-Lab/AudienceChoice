@@ -16,10 +16,7 @@ class AppState extends State<App>{
   }
 
   Widget _buildApp(){
-    return new MaterialApp(
-      theme: _buildTheme(),
-      home: TapScreen(),
-    );
+    return new MaterialApp(theme: _buildTheme(), home: TapScreen());
   }
 
   ThemeData _buildTheme() {
