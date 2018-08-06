@@ -58,13 +58,13 @@ class PollScreenState extends State<PollScreen>{
         new FlatButton(
           child: new Text("Reset", style: new TextStyle(color: kACBackgroundWhite)),
           onPressed: (){
-              _buildRequestAlert();
+              _buildResetAlert();
           },)
       ],
     );
   }
 
-  Future<Null> _buildRequestAlert() async {
+  Future<Null> _buildResetAlert() async {
     return showDialog(
         context: context,
         barrierDismissible: true,
@@ -89,7 +89,28 @@ class PollScreenState extends State<PollScreen>{
                 onPressed: () {
                   if(_textController.text == activePin){
                     Navigator.of(context).pop();
+                    _buildSuccessAlert();
                   }
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<Null> _buildSuccessAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Reset"),
+            content: new Text("The song list has been successfully reset to zero."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -107,6 +128,9 @@ class PollScreenState extends State<PollScreen>{
           style: TextStyle(color: kACPrimaryText, fontSize: 18.0)
         ),
       ),
+      onPressed: () {
+
+      },
     );
   }
 
