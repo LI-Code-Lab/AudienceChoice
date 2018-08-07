@@ -129,7 +129,7 @@ class TapScreenState extends State<TapScreen>{
 
   Widget _buildAdminTextComposer() {
     return new Container(
-        color: kACSurfaceGrey,
+        color: kACSurfaceGreyLight,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: new Row(
           children: <Widget>[
@@ -239,6 +239,26 @@ class TapScreenState extends State<TapScreen>{
                 onPressed: () {
                   Navigator.of(context).pop();
                   _buildRequestAlert();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<Null> _buildRequestCompletionAlert(String message) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Request"),
+            content: new Text(message),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               )
             ],

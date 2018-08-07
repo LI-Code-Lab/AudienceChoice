@@ -125,7 +125,7 @@ class FeedScreenState extends State<FeedScreen>{
       child: new Container(
         child: new TextField(
           controller: _textController,
-          style: TextStyle(color: kACPrimaryText, fontSize: 18.0)
+          style: TextStyle(color: kACPrimaryText, fontSize: 14.0)
         ),
       ),
       onPressed: () {
@@ -136,7 +136,7 @@ class FeedScreenState extends State<FeedScreen>{
 
   Widget _buildTextComposer() {
     return new Container(
-        color: kACSurfaceGrey,
+        color: kACSurfaceGreyLight,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: new Row(
           children: <Widget>[
