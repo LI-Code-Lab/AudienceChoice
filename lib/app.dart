@@ -29,7 +29,7 @@ class AppState extends State<App>{
       cardColor: kACSurfaceGreyLight,
       textSelectionColor: kACBlue200,
       errorColor: kACErrorRed,
-      hintColor: kACBackgroundWhite,
+      hintColor: kACSurfaceGrey,
       buttonTheme: new ButtonThemeData(textTheme: ButtonTextTheme.accent),
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme),

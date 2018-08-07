@@ -117,6 +117,9 @@ class TapScreenState extends State<TapScreen>{
       disabledColor: kACBackgroundWhite,
       child: new Container(
         child: new TextField(
+            decoration: new InputDecoration.collapsed(
+                hintText: label
+            ),
             controller: controller,
             style: TextStyle(color: kACPrimaryText, fontSize: 14.0)
         ),
