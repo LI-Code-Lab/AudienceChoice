@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
-import "song_screen.dart";
+import 'package:audience_choice/views/poll_screen.dart';
 
 class TapScreen extends StatefulWidget{
 
@@ -11,6 +11,7 @@ class TapScreen extends StatefulWidget{
 }
 
 class TapScreenState extends State<TapScreen>{
+
   @override
   Widget build(BuildContext context) {
     return _buildTapScreen();
@@ -35,11 +36,8 @@ class TapScreenState extends State<TapScreen>{
                 child: new FlatButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
                   onPressed: (){
-                  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SongScreen()));
-                }, child: new Text("Request", style: new TextStyle(color: kACBackgroundWhite)), color: kACSurfaceGrey,),
+
+                  }, child: new Text("Request", style: new TextStyle(color: kACBackgroundWhite)), color: kACSurfaceGrey,),
               ),
               new Text("Admin", style: new TextStyle(color: kACBlue600, fontSize: 12.0))
             ],
