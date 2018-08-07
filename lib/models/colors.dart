@@ -13,6 +13,7 @@ const kACSurfaceWhite = const Color(0xFFFFFBFA);
 const kACSurfaceBlack = const Color(0xFF1c1c1c);
 const kACSurfaceGrey = const Color(0xFF3c3c3c);
 const kACBackgroundWhite = Colors.white;
+const kACSurfaceGreyLight = const Color(0xFFBDBDBD);
 
 const kACSurfaceTrans = const Color(0x8A007586);
 

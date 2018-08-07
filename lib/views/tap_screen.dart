@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
-import 'package:audience_choice/views/poll_screen.dart';
+import 'package:audience_choice/views/feed_screen.dart';
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
 
 class TapScreen extends StatefulWidget{
 
@@ -12,6 +14,9 @@ class TapScreen extends StatefulWidget{
 
 class TapScreenState extends State<TapScreen>{
 
+  final TextEditingController _textController = new TextEditingController();
+  final activePin = "1111";
+
   @override
   Widget build(BuildContext context) {
     return _buildTapScreen();
@@ -20,7 +25,7 @@ class TapScreenState extends State<TapScreen>{
   Widget _buildTapScreen(){
     return Scaffold(
       body: new Container(
-        color: kACPrimaryText,
+        color: kACSurfaceBlack,
         padding: EdgeInsets.all(16.0),
         child: new Center(
           child: new Column(
@@ -39,7 +44,10 @@ class TapScreenState extends State<TapScreen>{
 
                   }, child: new Text("Request", style: new TextStyle(color: kACBackgroundWhite)), color: kACSurfaceGrey,),
               ),
-              new Text("Admin", style: new TextStyle(color: kACBlue600, fontSize: 12.0))
+              new FlatButton(
+                  onPressed: () {
+                    _buildAdminAlert();
+                  }, child: new Text("Admin", style: new TextStyle(color: kACBlue600, fontSize: 12.0)))
             ],
           ),
         ),
@@ -59,5 +67,71 @@ class TapScreenState extends State<TapScreen>{
         ),
       ),
     );
+  }
+
+  Future<Null> _buildAdminAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Administrator?"),
+            content: new Column(
+              children: <Widget>[
+                new Text("Enter pin to access admin privileges."),
+                _buildTextComposer()
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  if(_textController.text == activePin){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FeedScreen()));
+                    _textController.clear();
+                  }
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Widget _buildTextField(String label) {
+    return FlatButton(
+      highlightColor: kACBackgroundWhite,
+      disabledColor: kACBackgroundWhite,
+      child: new Container(
+        child: new TextField(
+            controller: _textController,
+            style: TextStyle(color: kACPrimaryText, fontSize: 18.0)
+        ),
+      ),
+      onPressed: () {
+
+      },
+    );
+  }
+
+  Widget _buildTextComposer() {
+    return new Container(
+        color: kACSurfaceGrey,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+              child: _buildTextField("Enter pin"),
+            ),
+          ],
+        ));
   }
 }

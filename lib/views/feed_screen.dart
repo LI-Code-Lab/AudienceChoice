@@ -5,14 +5,14 @@ import 'settings_screen.dart';
 import 'package:audience_choice/views/feed_cell.dart';
 import 'dart:async';
 
-class PollScreen extends StatefulWidget{
+class FeedScreen extends StatefulWidget{
   @override
   State createState() {
-    return PollScreenState();
+    return FeedScreenState();
   }
 }
 
-class PollScreenState extends State<PollScreen>{
+class FeedScreenState extends State<FeedScreen>{
 
   final TextEditingController _textController = new TextEditingController();
   final listCount = 10;

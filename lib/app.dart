@@ -22,11 +22,11 @@ class AppState extends State<App>{
   ThemeData _buildTheme() {
     final ThemeData base = ThemeData.light();
     return base.copyWith(
-      primaryColor: kACBlue600,
+      primaryColor: kACSurfaceBlack,
       accentColor: kACGreen400,
       buttonColor: kACBlue400,
-      scaffoldBackgroundColor: kACSurfaceWhite,
-      cardColor: kACBackgroundWhite,
+      scaffoldBackgroundColor: kACSurfaceGrey,
+      cardColor: kACSurfaceGreyLight,
       textSelectionColor: kACBlue200,
       errorColor: kACErrorRed,
       hintColor: kACBackgroundWhite,

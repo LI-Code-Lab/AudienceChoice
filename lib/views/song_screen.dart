@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
 import 'song_cell.dart';
-import 'poll_screen.dart';
+import 'feed_screen.dart';
 
 class SongScreen extends StatefulWidget{
   @override
@@ -79,7 +79,7 @@ class SongScreenState extends State<SongScreen>{
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PollScreen()));
+                    builder: (context) => FeedScreen()));
           })
       ],
     );
