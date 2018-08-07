@@ -14,7 +14,12 @@ class TapScreen extends StatefulWidget{
 
 class TapScreenState extends State<TapScreen>{
 
-  final TextEditingController _textController = new TextEditingController();
+  final TextEditingController _adminController = new TextEditingController();
+
+  final TextEditingController _songTitleController = new TextEditingController();
+  final TextEditingController _artistController = new TextEditingController();
+  final TextEditingController _commentController = new TextEditingController();
+
   final activePin = "1111";
 
   @override
@@ -41,7 +46,7 @@ class TapScreenState extends State<TapScreen>{
                 child: new FlatButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
                   onPressed: (){
-
+                    _buildRequestAlert();
                   }, child: new Text("Request", style: new TextStyle(color: kACBackgroundWhite)), color: kACSurfaceGrey,),
               ),
               new FlatButton(
@@ -79,7 +84,7 @@ class TapScreenState extends State<TapScreen>{
             content: new Column(
               children: <Widget>[
                 new Text("Enter pin to access admin privileges."),
-                _buildTextComposer()
+                _buildAdminTextComposer()
               ],
             ),
             actions: <Widget>[
@@ -92,12 +97,12 @@ class TapScreenState extends State<TapScreen>{
               new FlatButton(
                 child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-                  if(_textController.text == activePin){
+                  if(_adminController.text == activePin){
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => FeedScreen()));
-                    _textController.clear();
+                    _adminController.clear();
                   }
                 },
               )
@@ -106,14 +111,14 @@ class TapScreenState extends State<TapScreen>{
         });
   }
 
-  Widget _buildTextField(String label) {
+  Widget _buildTextField(String label, TextEditingController controller) {
     return FlatButton(
       highlightColor: kACBackgroundWhite,
       disabledColor: kACBackgroundWhite,
       child: new Container(
         child: new TextField(
-            controller: _textController,
-            style: TextStyle(color: kACPrimaryText, fontSize: 18.0)
+            controller: controller,
+            style: TextStyle(color: kACPrimaryText, fontSize: 14.0)
         ),
       ),
       onPressed: () {
@@ -122,16 +127,122 @@ class TapScreenState extends State<TapScreen>{
     );
   }
 
-  Widget _buildTextComposer() {
+  Widget _buildAdminTextComposer() {
     return new Container(
         color: kACSurfaceGrey,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
-              child: _buildTextField("Enter pin"),
+              child: _buildTextField("Enter pin", _adminController),
             ),
           ],
         ));
+  }
+
+  Future<Null> _buildRequestAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Request Song?"),
+            content: new Column(
+              children: <Widget>[
+                new Text("Enter a song title, artist or both! You can also leave a comment."),
+                _buildSongTextComposer(),
+                new Text("and/or"),
+                _buildArtistTextComposer(),
+                _buildCommentTextComposer()
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text('Submit', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  if(_songTitleController.text.isEmpty){
+                    //check to see if artist controller is also empty
+                    if(_artistController.text.isEmpty){
+                      _buildRequestFailedAlert();
+                    }
+                    else{
+                      //TODO: submit to firebase
+                    }
+                  }
+                  else{
+                    //TODO: submit to firebase
+                  }
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Widget _buildSongTextComposer() {
+    return new Container(
+        color: kACSurfaceGreyLight,
+        margin: EdgeInsets.all(4.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+              child: _buildTextField("Song Title: ", _songTitleController)
+            ),
+          ],
+        ));
+  }
+
+  Widget _buildArtistTextComposer() {
+    return new Container(
+        color: kACSurfaceGreyLight,
+        margin: EdgeInsets.all(4.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+                child: _buildTextField("Artist Name: ", _artistController)
+            ),
+          ],
+        ));
+  }
+
+  Widget _buildCommentTextComposer() {
+    return new Container(
+      height: 100.0,
+        color: kACSurfaceGreyLight,
+        margin: EdgeInsets.all(4.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+                child: _buildTextField("Comment: ex: This is my friend John's favorite song! ", _commentController)
+            ),
+          ],
+        ));
+  }
+
+  Future<Null> _buildRequestFailedAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Failed to Submit"),
+            content: new Text("To request a song you must include a song title and/or artist name."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _buildRequestAlert();
+                },
+              )
+            ],
+          );
+        });
   }
 }
