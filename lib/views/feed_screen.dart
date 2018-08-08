@@ -14,7 +14,6 @@ class FeedScreen extends StatefulWidget{
 
 class FeedScreenState extends State<FeedScreen>{
 
-  DocumentSnapshot _ds;
   final TextEditingController _textController = new TextEditingController();
   final listCount = 10;
   final titles = ["Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title"];
@@ -46,7 +45,7 @@ class FeedScreenState extends State<FeedScreen>{
         children: <Widget>[
           new FlatButton(
               onPressed: () {
-
+                _buildFilterPicker();
               },
               child: new Text("Filter", style: new TextStyle(fontSize: 14.0, color: kACBlue600)))
         ],
@@ -159,12 +158,11 @@ class FeedScreenState extends State<FeedScreen>{
         builder: (context, snapshot) {
             if(!snapshot.hasData) return CircularProgressIndicator();
             return new ListView.builder(
-                padding: new EdgeInsets.all(8.0),
+                padding: new EdgeInsets.all(4.0),
                 itemCount: snapshot.data.documents.length,
                 itemExtent: 115.0,
                 itemBuilder: (context, index){
                   DocumentSnapshot ds = snapshot.data.documents[index];
-                  _ds = ds;
                   return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
                 });
         });
@@ -198,6 +196,21 @@ class FeedScreenState extends State<FeedScreen>{
               )
             ],
           );
+        });
+  }
+
+  Future<Null> _buildFilterPicker() async{
+    return showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return new CupertinoPicker(
+            backgroundColor: kACSurfaceGreyLight,
+              itemExtent: 25.0,
+              onSelectedItemChanged: null, 
+              children: <Widget>[
+                new Text("Most Recent", style: new TextStyle(fontSize: 18.0, color: kACPrimaryText)),
+                new Text("Chronological", style: new TextStyle(fontSize: 18.0, color: kACPrimaryText))
+              ]);
         });
   }
 }
