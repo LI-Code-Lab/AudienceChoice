@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 class FeedCell extends StatelessWidget{
 
-  final title;
-  final artist;
-  final comment;
+  String title;
+  String artist;
+  String comment;
 
   FeedCell(this.title, this.artist, this.comment);
 
@@ -16,6 +16,7 @@ class FeedCell extends StatelessWidget{
   }
 
   Widget _buildFeedCell(){
+    _formatNullFields();
     return Card(
       child: new Container(
         alignment: Alignment.centerLeft,
@@ -32,5 +33,17 @@ class FeedCell extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  void _formatNullFields(){
+    if(title.length == 0){
+      title = '---';
+    }
+    if(artist.length == 0){
+      artist = '---';
+    }
+    if(comment.length == 0){
+      comment = '---';
+    }
   }
 }
