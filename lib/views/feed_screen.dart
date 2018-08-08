@@ -14,6 +14,7 @@ class FeedScreen extends StatefulWidget{
 
 class FeedScreenState extends State<FeedScreen>{
 
+  DocumentSnapshot _ds;
   final TextEditingController _textController = new TextEditingController();
   final listCount = 10;
   final titles = ["Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title"];
@@ -95,28 +96,8 @@ class FeedScreenState extends State<FeedScreen>{
                 onPressed: () {
                   if(_textController.text == activePin){
                     Navigator.of(context).pop();
-                    _buildSuccessAlert();
+                    _deleteAllRequests();
                   }
-                },
-              )
-            ],
-          );
-        });
-  }
-
-  Future<Null> _buildSuccessAlert() async {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return new CupertinoAlertDialog(
-            title: new Text("Reset"),
-            content: new Text("The song list has been successfully reset to zero."),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
-                onPressed: () {
-                  Navigator.of(context).pop();
                 },
               )
             ],
@@ -164,8 +145,40 @@ class FeedScreenState extends State<FeedScreen>{
                 itemExtent: 115.0,
                 itemBuilder: (context, index){
                   DocumentSnapshot ds = snapshot.data.documents[index];
+                  _ds = ds;
                   return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
                 });
+        });
+  }
+
+  void _deleteAllRequests(){
+    Firestore.instance
+        .collection("feed")
+        .document()
+        .delete()
+        .whenComplete(() {
+          _buildRequestCompletionAlert("The feed has been successfully reset.");
+          _textController.clear();
+    }).catchError((e) => _buildRequestCompletionAlert(e));
+  }
+
+  Future<Null> _buildRequestCompletionAlert(String message) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Request"),
+            content: new Text(message),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
         });
   }
 }
