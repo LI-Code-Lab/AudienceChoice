@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
-import 'settings_screen.dart';
 import 'package:audience_choice/views/feed_cell.dart';
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class FeedScreen extends StatefulWidget{
   @override
@@ -36,17 +37,23 @@ class FeedScreenState extends State<FeedScreen>{
   }
 
   Widget _buildSongList(){
-    return new ListView.builder(
-        itemCount: listCount,
-        itemExtent: 85.0,
-        itemBuilder: (context, index) {
-          return new FlatButton(
-            onPressed: null,
-            child: new FeedCell(
-                titles[index], artist[index], comments[index]),
-            padding: new EdgeInsets.all(0.0)
-          );
-        });
+    return new Column(
+      children: <Widget>[
+        new Flexible(child: _getFeed()),
+        new Divider(height: 1.0)
+      ],
+    );
+//    return new ListView.builder(
+//        itemCount: listCount,
+//        itemExtent: 85.0,
+//        itemBuilder: (context, index) {
+//          return new FlatButton(
+//            onPressed: null,
+//            child: new FeedCell(
+//                titles[index], artist[index], comments[index]),
+//            padding: new EdgeInsets.all(0.0)
+//          );
+//        });
   }
 
   Widget _buildAppBar(){
@@ -145,5 +152,21 @@ class FeedScreenState extends State<FeedScreen>{
             ),
           ],
         ));
+  }
+
+  StreamBuilder _getFeed(){
+    return new StreamBuilder(
+      stream: Firestore.instance.collection('feed').snapshots(),
+        builder: (context, snapshot) {
+            if(!snapshot.hasData) return CircularProgressIndicator();
+            return new ListView.builder(
+                padding: new EdgeInsets.all(8.0),
+                itemCount: snapshot.data.documents.length,
+                itemExtent: 115.0,
+                itemBuilder: (context, index){
+                  DocumentSnapshot ds = snapshot.data.documents[index];
+                  return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
+                });
+        });
   }
 }
