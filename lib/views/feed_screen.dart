@@ -36,9 +36,28 @@ class FeedScreenState extends State<FeedScreen>{
     );
   }
 
+  Widget _buildFilterBar(){
+    return Container(
+      width: 400.0,
+      color: kACSurfaceBlack,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          new FlatButton(
+              onPressed: () {
+
+              },
+              child: new Text("Filter", style: new TextStyle(fontSize: 14.0, color: kACBlue600)))
+        ],
+      ),
+    );
+  }
+
   Widget _buildSongList(){
     return new Column(
       children: <Widget>[
+        _buildFilterBar(),
         new Flexible(child: _getFeed()),
         new Divider(height: 1.0)
       ],
