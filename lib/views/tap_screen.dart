@@ -83,7 +83,7 @@ class TapScreenState extends State<TapScreen>{
             title: new Text("Administrator?"),
             content: new Column(
               children: <Widget>[
-                new Text("Enter pin to access admin privileges."),
+                new Text("Enter password to access admin privileges."),
                 _buildAdminTextComposer()
               ],
             ),
@@ -133,11 +133,11 @@ class TapScreenState extends State<TapScreen>{
   Widget _buildAdminTextComposer() {
     return new Container(
         color: kACSurfaceGreyLight,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        margin: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
-              child: _buildTextField("Enter pin", _adminController),
+              child: _buildTextField("Password", _adminController),
             ),
           ],
         ));
@@ -156,6 +156,7 @@ class TapScreenState extends State<TapScreen>{
                 _buildSongTextComposer(),
                 new Text("and/or"),
                 _buildArtistTextComposer(),
+                new Text("Comment"),
                 _buildCommentTextComposer()
               ],
             ),
@@ -191,7 +192,7 @@ class TapScreenState extends State<TapScreen>{
   Widget _buildSongTextComposer() {
     return new Container(
         color: kACSurfaceGreyLight,
-        margin: EdgeInsets.all(4.0),
+        margin: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
@@ -204,7 +205,7 @@ class TapScreenState extends State<TapScreen>{
   Widget _buildArtistTextComposer() {
     return new Container(
         color: kACSurfaceGreyLight,
-        margin: EdgeInsets.all(4.0),
+        margin: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
@@ -216,15 +217,19 @@ class TapScreenState extends State<TapScreen>{
 
   Widget _buildCommentTextComposer() {
     return new Container(
-      height: 100.0,
         color: kACSurfaceGreyLight,
-        margin: EdgeInsets.all(4.0),
-        child: new Row(
-          children: <Widget>[
-            new Flexible(
-                child: _buildTextField("Comment: ex: This is my friend John's favorite song! ", _commentController)
-            ),
-          ],
+        margin: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+        child: SizedBox(
+          height: 100.0,
+          child: new Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Flexible(
+                  child: _buildTextField("Ex: For my friend John ", _commentController)
+              ),
+            ],
+          ),
         ));
   }
 

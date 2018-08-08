@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "572266966760",
+    "firebase_url": "https://audience-choice.firebaseio.com",
+    "project_id": "audience-choice",
+    "storage_bucket": "audience-choice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572266966760:android:313424431e662143",
+        "android_client_info": {
+          "package_name": "com.licodelabs.audiencechoice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572266966760-uu7ab7qhtfbpk1mpp3u1rcfletea7lko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLbG7JoINQV2lpgVu0BGwcitAj3QGNYdY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

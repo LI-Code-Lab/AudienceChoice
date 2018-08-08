@@ -141,7 +141,7 @@ class FeedScreenState extends State<FeedScreen>{
         child: new Row(
           children: <Widget>[
             new Flexible(
-              child: _buildTextField("Enter pin"),
+              child: _buildTextField("Password"),
             ),
           ],
         ));
