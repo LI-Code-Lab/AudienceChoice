@@ -26,9 +26,13 @@ class FeedCell extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            new Text(title, style: new TextStyle(fontSize: 16.0, color: kACPrimaryText)),
-            new Text(artist, style: new TextStyle(fontSize: 14.0, color: kACPrimaryText)),
-            new Text(comment, style: new TextStyle(fontSize: 12.0, color: kACPrimaryText))
+            new Container(
+                margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                child: new Text("Title: " + title, style: new TextStyle(fontSize: 16.0, color: kACPrimaryText))),
+            new Container(
+                margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                child: new Text("Artist: " + artist, style: new TextStyle(fontSize: 14.0, color: kACPrimaryText))),
+            new Text("Comment: " + comment, style: new TextStyle(fontSize: 12.0, color: kACPrimaryText))
           ],
         ),
       ),
