@@ -3,6 +3,7 @@ import 'package:audience_choice/models/colors.dart';
 import 'package:audience_choice/views/feed_screen.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TapScreen extends StatefulWidget{
 
@@ -170,17 +171,11 @@ class TapScreenState extends State<TapScreen>{
               new FlatButton(
                 child: new Text('Submit', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-                  if(_songTitleController.text.isEmpty){
-                    //check to see if artist controller is also empty
-                    if(_artistController.text.isEmpty){
-                      _buildRequestFailedAlert();
-                    }
-                    else{
-                      //TODO: submit to firebase
-                    }
+                  if(_songTitleController.text.isEmpty && _artistController.text.isEmpty){
+                    _buildRequestFailedAlert();
                   }
                   else{
-                    //TODO: submit to firebase
+                    _postRequest(_songTitleController.text, _artistController.text, _commentController.text);
                   }
                 },
               )
@@ -272,5 +267,24 @@ class TapScreenState extends State<TapScreen>{
             ],
           );
         });
+  }
+
+  void _postRequest(String title, String artist, String comment){
+    Firestore.instance
+        .collection("feed")
+        .document()
+        .setData(buildNewRequest(title, artist, comment))
+        .whenComplete(() {
+          _buildRequestCompletionAlert("Request submitted successfully");
+    }).catchError((e) => _buildRequestCompletionAlert(e));
+  }
+
+  Map<String, String> buildNewRequest(String title, String artist, String comment) {
+    Map<String, String> data = <String, String>{
+      "songTitle": title,
+      "artist": artist,
+      "comment": comment
+    };
+    return data;
   }
 }

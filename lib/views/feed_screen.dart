@@ -5,7 +5,6 @@ import 'package:audience_choice/views/feed_cell.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class FeedScreen extends StatefulWidget{
   @override
   State createState() {
