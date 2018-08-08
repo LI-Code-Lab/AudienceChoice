@@ -166,6 +166,7 @@ class TapScreenState extends State<TapScreen>{
                 child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  _clearRequestFields();
                 },
               ),
               new FlatButton(
@@ -175,6 +176,7 @@ class TapScreenState extends State<TapScreen>{
                     _buildRequestFailedAlert();
                   }
                   else{
+                    Navigator.of(context).pop();
                     _postRequest(_songTitleController.text, _artistController.text, _commentController.text);
                   }
                 },
@@ -273,18 +275,25 @@ class TapScreenState extends State<TapScreen>{
     Firestore.instance
         .collection("feed")
         .document()
-        .setData(buildNewRequest(title, artist, comment))
+        .setData(_buildNewRequest(title, artist, comment))
         .whenComplete(() {
           _buildRequestCompletionAlert("Request submitted successfully");
+          _clearRequestFields();
     }).catchError((e) => _buildRequestCompletionAlert(e));
   }
 
-  Map<String, String> buildNewRequest(String title, String artist, String comment) {
+  Map<String, String> _buildNewRequest(String title, String artist, String comment) {
     Map<String, String> data = <String, String>{
       "songTitle": title,
       "artist": artist,
       "comment": comment
     };
     return data;
+  }
+
+  void _clearRequestFields(){
+    _commentController.clear();
+    _artistController.clear();
+    _songTitleController.clear();
   }
 }
