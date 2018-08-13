@@ -20,6 +20,7 @@ class FeedScreenState extends State<FeedScreen>{
   final artist = ["Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---"];
   final comments = ["---", "adfasdfasdf", "---", "adfasdfaafbqlebfahjbsdflhjabdfsdf", "---", "adfasdfasdf", "---", "adfasdfasdf", "---", "adfasdfasdf" ];
   final activePin = "1111";
+  List<DocumentReference> _documentReferences = [];
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class FeedScreenState extends State<FeedScreen>{
                 onPressed: () {
                   if(_textController.text == activePin){
                     Navigator.of(context).pop();
-                    _deleteAllRequests();
+                    _deleteAllRequests(_documentReferences);
                   }
                 },
               )
@@ -163,20 +164,25 @@ class FeedScreenState extends State<FeedScreen>{
                 itemExtent: 115.0,
                 itemBuilder: (context, index){
                   DocumentSnapshot ds = snapshot.data.documents[index];
+                  DocumentReference dr = ds.reference;
+                  _documentReferences.add(dr);
                   return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
                 });
         });
   }
 
-  void _deleteAllRequests(){
-    Firestore.instance
-        .collection("feed")
-        .document()
-        .delete()
-        .whenComplete(() {
-          _buildRequestCompletionAlert("The feed has been successfully reset.");
-          _textController.clear();
-    }).catchError((e) => _buildRequestCompletionAlert(e));
+  void _deleteAllRequests(List<DocumentReference> references){
+    for(var i = 0; i < references.length; i++){
+      _deleteRequest(references[i]);
+    }
+  }
+
+  void _deleteRequest(DocumentReference reference){
+    Firestore.instance.runTransaction((transaction) async {
+          await transaction.delete(reference).whenComplete((){
+            _buildRequestCompletionAlert("Feed has been successfully reset.");
+          }).catchError((e) => _buildRequestCompletionAlert(e));
+    });
   }
 
   Future<Null> _buildRequestCompletionAlert(String message) async {
