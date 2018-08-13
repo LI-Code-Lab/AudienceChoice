@@ -20,6 +20,7 @@ class FeedScreenState extends State<FeedScreen>{
   final artist = ["Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---"];
   final comments = ["---", "adfasdfasdf", "---", "adfasdfaafbqlebfahjbsdflhjabdfsdf", "---", "adfasdfasdf", "---", "adfasdfasdf", "---", "adfasdfasdf" ];
   final activePin = "1111";
+  bool isMostRecent = false;
   List<DocumentReference> _documentReferences = [];
 
   @override
@@ -58,7 +59,7 @@ class FeedScreenState extends State<FeedScreen>{
     return new Column(
       children: <Widget>[
         _buildFilterBar(),
-        new Flexible(child: _getFeed()),
+        new Flexible(child: _getFeed(isMostRecent)),
         new Divider(height: 1.0)
       ],
     );
@@ -153,10 +154,11 @@ class FeedScreenState extends State<FeedScreen>{
         ));
   }
 
-  StreamBuilder _getFeed(){
-    return new StreamBuilder(
-      stream: Firestore.instance.collection('feed').snapshots(),
-        builder: (context, snapshot) {
+  StreamBuilder _getFeed(bool isMostRecent){
+    if(!isMostRecent){
+      return new StreamBuilder(
+          stream: Firestore.instance.collection('feed').snapshots(),
+          builder: (context, snapshot) {
             if(!snapshot.hasData) return CircularProgressIndicator();
             return new ListView.builder(
                 padding: new EdgeInsets.all(4.0),
@@ -168,7 +170,26 @@ class FeedScreenState extends State<FeedScreen>{
                   _documentReferences.add(dr);
                   return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
                 });
-        });
+          });
+    }
+    else{
+      return new StreamBuilder(
+          stream: Firestore.instance.collection('feed').snapshots(),
+          builder: (context, snapshot) {
+            if(!snapshot.hasData) return CircularProgressIndicator();
+            return new ListView.builder(
+              reverse: true,
+                padding: new EdgeInsets.all(4.0),
+                itemCount: snapshot.data.documents.length,
+                itemExtent: 115.0,
+                itemBuilder: (context, index){
+                  DocumentSnapshot ds = snapshot.data.documents[index];
+                  DocumentReference dr = ds.reference;
+                  _documentReferences.add(dr);
+                  return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
+                });
+          });
+    }
   }
 
   void _deleteAllRequests(List<DocumentReference> references){
