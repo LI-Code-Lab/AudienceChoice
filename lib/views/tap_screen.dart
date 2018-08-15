@@ -21,7 +21,7 @@ class TapScreenState extends State<TapScreen>{
   final TextEditingController _artistController = new TextEditingController();
   final TextEditingController _commentController = new TextEditingController();
 
-  final activePin = "1111";
+  final activePin = "080118";
 
   @override
   Widget build(BuildContext context) {

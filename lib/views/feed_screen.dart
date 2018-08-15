@@ -19,7 +19,7 @@ class FeedScreenState extends State<FeedScreen>{
   final titles = ["Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title", "Song Title"];
   final artist = ["Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---", "Bon Jovi", "---"];
   final comments = ["---", "adfasdfasdf", "---", "adfasdfaafbqlebfahjbsdflhjabdfsdf", "---", "adfasdfasdf", "---", "adfasdfasdf", "---", "adfasdfasdf" ];
-  final activePin = "1111";
+  final activePin = "080118";
   bool isMostRecent = false;
   List<DocumentReference> _documentReferences = [];
 
