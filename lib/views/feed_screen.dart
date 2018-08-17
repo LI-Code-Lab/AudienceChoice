@@ -58,7 +58,7 @@ class FeedScreenState extends State<FeedScreen>{
   Widget _buildSongList(){
     return new Column(
       children: <Widget>[
-        _buildFilterBar(),
+        //_buildFilterBar(),
         new Flexible(child: _getFeed(isMostRecent)),
         new Divider(height: 1.0)
       ],

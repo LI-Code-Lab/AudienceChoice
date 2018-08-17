@@ -53,7 +53,7 @@ class TapScreenState extends State<TapScreen>{
               new FlatButton(
                   onPressed: () {
                     _buildAdminAlert();
-                  }, child: new Text("Admin", style: new TextStyle(color: kACBlue600, fontSize: 12.0)))
+                  }, child: new Text(".", style: new TextStyle(color: kACBackgroundWhite, fontSize: 12.0)))
             ],
           ),
         ),
