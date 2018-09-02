@@ -28,6 +28,9 @@ end
 
 target 'Runner' do
   use_frameworks!
+  
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   # Prepare symlinks folder. We use symlinks to avoid having Podfile.lock
   # referring to absolute paths on developers' machines.

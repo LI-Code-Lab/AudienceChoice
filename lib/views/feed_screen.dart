@@ -81,13 +81,13 @@ class FeedScreenState extends State<FeedScreen>{
       brightness: Brightness.light,
       elevation: 0.0,
       title: Text('Feed'),
-      actions: <Widget>[
-        new FlatButton(
-          child: new Text("Reset", style: new TextStyle(color: kACBackgroundWhite)),
-          onPressed: (){
-              _buildResetAlert();
-          },)
-      ],
+//      actions: <Widget>[
+//        new FlatButton(
+//          child: new Text("Reset", style: new TextStyle(color: kACBackgroundWhite)),
+//          onPressed: (){
+//              _buildResetAlert();
+//          },)
+//      ],
     );
   }
 
@@ -155,7 +155,7 @@ class FeedScreenState extends State<FeedScreen>{
   }
 
   StreamBuilder _getFeed(bool isMostRecent){
-    if(!isMostRecent){
+   // if(!isMostRecent){
       return new StreamBuilder(
           stream: Firestore.instance.collection('feed').snapshots(),
           builder: (context, snapshot) {
@@ -168,28 +168,34 @@ class FeedScreenState extends State<FeedScreen>{
                   DocumentSnapshot ds = snapshot.data.documents[index];
                   DocumentReference dr = ds.reference;
                   _documentReferences.add(dr);
-                  return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
+                  return Dismissible(
+                    key: Key(ds.documentID),
+                    onDismissed: (direction) {
+                      _deleteRequest(ds.reference);
+                    },
+                    child: FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}"),
+                  );
                 });
           });
-    }
-    else{
-      return new StreamBuilder(
-          stream: Firestore.instance.collection('feed').snapshots(),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData) return CircularProgressIndicator();
-            return new ListView.builder(
-              reverse: true,
-                padding: new EdgeInsets.all(4.0),
-                itemCount: snapshot.data.documents.length,
-                itemExtent: 115.0,
-                itemBuilder: (context, index){
-                  DocumentSnapshot ds = snapshot.data.documents[index];
-                  DocumentReference dr = ds.reference;
-                  _documentReferences.add(dr);
-                  return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
-                });
-          });
-    }
+   // }
+//    else{
+//      return new StreamBuilder(
+//          stream: Firestore.instance.collection('feed').snapshots(),
+//          builder: (context, snapshot) {
+//            if(!snapshot.hasData) return CircularProgressIndicator();
+//            return new ListView.builder(
+//              reverse: true,
+//                padding: new EdgeInsets.all(4.0),
+//                itemCount: snapshot.data.documents.length,
+//                itemExtent: 115.0,
+//                itemBuilder: (context, index){
+//                  DocumentSnapshot ds = snapshot.data.documents[index];
+//                  DocumentReference dr = ds.reference;
+//                  _documentReferences.add(dr);
+//                  return FeedCell("${ds['songTitle']}", "${ds['artist']}", "${ds['comment']}");
+//                });
+//          });
+//    }
   }
 
   void _deleteAllRequests(List<DocumentReference> references){
@@ -201,7 +207,7 @@ class FeedScreenState extends State<FeedScreen>{
   void _deleteRequest(DocumentReference reference){
     Firestore.instance.runTransaction((transaction) async {
           await transaction.delete(reference).whenComplete((){
-            _buildRequestCompletionAlert("Feed has been successfully reset.");
+            _buildRequestCompletionAlert("Song has been successfully deleted");
           }).catchError((e) => _buildRequestCompletionAlert(e));
     });
   }
