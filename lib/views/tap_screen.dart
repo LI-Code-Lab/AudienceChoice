@@ -123,6 +123,7 @@ class TapScreenState extends State<TapScreen> {
                   if (_adminController.text == activePin) {
                     _buildAdminActionsAlert();
                     _adminController.clear();
+                    Navigator.pop(context);
                   }
                 },
               )
@@ -148,6 +149,7 @@ class TapScreenState extends State<TapScreen> {
                 child: new Text('SHOW FEED',
                     style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FeedScreen()));
                 },
@@ -157,6 +159,7 @@ class TapScreenState extends State<TapScreen> {
                     style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   _buildLogoRequest();
+                  Navigator.pop(context);
                 },
               ),
               new FlatButton(
@@ -164,6 +167,7 @@ class TapScreenState extends State<TapScreen> {
                     style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   _buildTitleChangeAlert();
+                  Navigator.pop(context);
                 },
               ),
               new FlatButton(
@@ -214,6 +218,7 @@ class TapScreenState extends State<TapScreen> {
                 onPressed: () {
                   _buildTitleChangeRequest(_titleChangeController.text);
                   _titleChangeController.clear();
+                  Navigator.pop(context);
                 },
               )
             ],
