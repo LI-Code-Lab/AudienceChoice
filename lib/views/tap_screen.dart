@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:audience_choice/models/colors.dart';
 import 'package:audience_choice/views/feed_screen.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TapScreen extends StatefulWidget{
 
@@ -14,6 +17,8 @@ class TapScreen extends StatefulWidget{
 }
 
 class TapScreenState extends State<TapScreen>{
+
+  File _logoImage;
 
   final TextEditingController _adminController = new TextEditingController();
 
@@ -69,7 +74,8 @@ class TapScreenState extends State<TapScreen>{
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: new DecorationImage(
-              image: new AssetImage('assets/ed_main_logo.png'))
+              image: _logoImage == null ? new AssetImage('assets/ed_main_logo.png') : new FileImage(_logoImage)
+          )
         ),
       ),
     );
@@ -99,10 +105,6 @@ class TapScreenState extends State<TapScreen>{
                 child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   if(_adminController.text == activePin){
-//                    Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                            builder: (context) => FeedScreen()));
                   _buildAdminActionsAlert();
                     _adminController.clear();
                   }
@@ -138,7 +140,7 @@ class TapScreenState extends State<TapScreen>{
               new FlatButton(
                 child: new Text('UPDATE LOGO', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-
+                  _buildLogoRequest();
                 },
               ),
               new FlatButton(
@@ -335,5 +337,12 @@ class TapScreenState extends State<TapScreen>{
     _commentController.clear();
     _artistController.clear();
     _songTitleController.clear();
+  }
+
+  Future _buildLogoRequest() async{
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _logoImage = image;
+    });
   }
 }

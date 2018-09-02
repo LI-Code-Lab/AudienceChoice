@@ -39,6 +39,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app contains the ability to change the logo on the main screen by uploading one from the device.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app contains the ability to change the logo on the main screen by capturing one from the device.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not use audio recorded from the microphone.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
