@@ -68,8 +68,8 @@ class TapScreenState extends State<TapScreen>{
 
   Widget _buildLogo(){
     return Container(
-      height: 200.0,
-      width: 200.0,
+      height: 250.0,
+      width: 250.0,
       margin: EdgeInsets.all(32.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
