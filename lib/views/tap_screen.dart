@@ -8,23 +8,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TapScreen extends StatefulWidget{
-
+class TapScreen extends StatefulWidget {
   @override
   State createState() {
     return new TapScreenState();
   }
 }
 
-class TapScreenState extends State<TapScreen>{
-
+class TapScreenState extends State<TapScreen> {
   File _logoImage;
+  String clickTitle = "Click to choose your song!";
 
   final TextEditingController _adminController = new TextEditingController();
 
-  final TextEditingController _songTitleController = new TextEditingController();
+  final TextEditingController _songTitleController =
+      new TextEditingController();
   final TextEditingController _artistController = new TextEditingController();
   final TextEditingController _commentController = new TextEditingController();
+  final TextEditingController _titleChangeController = new TextEditingController();
 
   final activePin = "080118";
 
@@ -33,7 +34,7 @@ class TapScreenState extends State<TapScreen>{
     return _buildTapScreen();
   }
 
-  Widget _buildTapScreen(){
+  Widget _buildTapScreen() {
     return Scaffold(
       body: new Container(
         color: kACSurfaceBlack,
@@ -44,21 +45,34 @@ class TapScreenState extends State<TapScreen>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _buildLogo(),
-              new Text("Click to choose your song!", style: new TextStyle(fontSize: 28.0, fontWeight: FontWeight.w500, color: kACBackgroundWhite), textAlign: TextAlign.center),
+              new Text(clickTitle,
+                  style: new TextStyle(
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w500,
+                      color: kACBackgroundWhite),
+                  textAlign: TextAlign.center),
               new Container(
                 width: 300.0,
                 height: 50.0,
                 margin: EdgeInsets.all(32.0),
                 child: new FlatButton(
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
-                  onPressed: (){
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0)),
+                  onPressed: () {
                     _buildRequestAlert();
-                  }, child: new Text("Request", style: new TextStyle(color: kACBackgroundWhite)), color: kACSurfaceGrey,),
+                  },
+                  child: new Text("Request",
+                      style: new TextStyle(color: kACBackgroundWhite)),
+                  color: kACSurfaceGrey,
+                ),
               ),
               new FlatButton(
                   onPressed: () {
                     _buildAdminAlert();
-                  }, child: new Text(".", style: new TextStyle(color: kACBackgroundWhite, fontSize: 12.0)))
+                  },
+                  child: new Text(".",
+                      style: new TextStyle(
+                          color: kACBackgroundWhite, fontSize: 12.0)))
             ],
           ),
         ),
@@ -66,17 +80,17 @@ class TapScreenState extends State<TapScreen>{
     );
   }
 
-  Widget _buildLogo(){
+  Widget _buildLogo() {
     return Container(
       height: 250.0,
       width: 250.0,
       margin: EdgeInsets.all(32.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          image: new DecorationImage(
-              image: _logoImage == null ? new AssetImage('assets/ed_main_logo.png') : new FileImage(_logoImage)
-          )
-        ),
+            image: new DecorationImage(
+                image: _logoImage == null
+                    ? new AssetImage('assets/ed_main_logo.png')
+                    : new FileImage(_logoImage))),
       ),
     );
   }
@@ -96,16 +110,18 @@ class TapScreenState extends State<TapScreen>{
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('Cancel',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               new FlatButton(
-                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                child:
+                    new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-                  if(_adminController.text == activePin){
-                  _buildAdminActionsAlert();
+                  if (_adminController.text == activePin) {
+                    _buildAdminActionsAlert();
                     _adminController.clear();
                   }
                 },
@@ -129,24 +145,75 @@ class TapScreenState extends State<TapScreen>{
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('SHOW FEED', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('SHOW FEED',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FeedScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FeedScreen()));
                 },
               ),
               new FlatButton(
-                child: new Text('UPDATE LOGO', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('UPDATE LOGO',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   _buildLogoRequest();
                 },
               ),
               new FlatButton(
-                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('UPDATE TITLE',
+                    style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  _buildTitleChangeAlert();
+                },
+              ),
+              new FlatButton(
+                child: new Text('Cancel',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<Null> _buildTitleChangeAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Title Update"),
+            content: new Column(
+              children: <Widget>[
+                new Text("Enter a new click title."),
+                new Container(
+                    color: kACSurfaceGreyLight,
+                    margin: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                    child: new Row(
+                      children: <Widget>[
+                        new Flexible(
+                          child: _buildTextField("New Title", _titleChangeController),
+                        ),
+                      ],
+                    ))
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel',
+                    style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child:
+                    new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  _buildTitleChangeRequest(_titleChangeController.text);
+                  _titleChangeController.clear();
                 },
               )
             ],
@@ -160,16 +227,11 @@ class TapScreenState extends State<TapScreen>{
       disabledColor: kACBackgroundWhite,
       child: new Container(
         child: new TextField(
-            decoration: new InputDecoration.collapsed(
-                hintText: label
-            ),
+            decoration: new InputDecoration.collapsed(hintText: label),
             controller: controller,
-            style: TextStyle(color: kACPrimaryText, fontSize: 14.0)
-        ),
+            style: TextStyle(color: kACPrimaryText, fontSize: 14.0)),
       ),
-      onPressed: () {
-
-      },
+      onPressed: () {},
     );
   }
 
@@ -195,7 +257,8 @@ class TapScreenState extends State<TapScreen>{
             title: new Text("Request Song?"),
             content: new Column(
               children: <Widget>[
-                new Text("Enter a song title, artist or both! You can also leave a comment."),
+                new Text(
+                    "Enter a song title, artist or both! You can also leave a comment."),
                 _buildSongTextComposer(),
                 new Text("and/or"),
                 _buildArtistTextComposer(),
@@ -205,21 +268,24 @@ class TapScreenState extends State<TapScreen>{
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('Cancel',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
                   _clearRequestFields();
                 },
               ),
               new FlatButton(
-                child: new Text('Submit', style: new TextStyle(color: kACPrimaryText)),
+                child: new Text('Submit',
+                    style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
-                  if(_songTitleController.text.isEmpty && _artistController.text.isEmpty){
+                  if (_songTitleController.text.isEmpty &&
+                      _artistController.text.isEmpty) {
                     _buildRequestFailedAlert();
-                  }
-                  else{
+                  } else {
                     Navigator.of(context).pop();
-                    _postRequest(_songTitleController.text, _artistController.text, _commentController.text);
+                    _postRequest(_songTitleController.text,
+                        _artistController.text, _commentController.text);
                   }
                 },
               )
@@ -235,8 +301,7 @@ class TapScreenState extends State<TapScreen>{
         child: new Row(
           children: <Widget>[
             new Flexible(
-              child: _buildTextField("Song Title: ", _songTitleController)
-            ),
+                child: _buildTextField("Song Title: ", _songTitleController)),
           ],
         ));
   }
@@ -248,8 +313,7 @@ class TapScreenState extends State<TapScreen>{
         child: new Row(
           children: <Widget>[
             new Flexible(
-                child: _buildTextField("Artist Name: ", _artistController)
-            ),
+                child: _buildTextField("Artist Name: ", _artistController)),
           ],
         ));
   }
@@ -265,8 +329,8 @@ class TapScreenState extends State<TapScreen>{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               new Flexible(
-                  child: _buildTextField("Ex: For my friend John ", _commentController)
-              ),
+                  child: _buildTextField(
+                      "Ex: For my friend John ", _commentController)),
             ],
           ),
         ));
@@ -279,10 +343,12 @@ class TapScreenState extends State<TapScreen>{
         builder: (BuildContext context) {
           return new CupertinoAlertDialog(
             title: new Text("Failed to Submit"),
-            content: new Text("To request a song you must include a song title and/or artist name."),
+            content: new Text(
+                "To request a song you must include a song title and/or artist name."),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                child:
+                    new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
                   _buildRequestAlert();
@@ -303,7 +369,8 @@ class TapScreenState extends State<TapScreen>{
             content: new Text(message),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
+                child:
+                    new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -313,18 +380,19 @@ class TapScreenState extends State<TapScreen>{
         });
   }
 
-  void _postRequest(String title, String artist, String comment){
+  void _postRequest(String title, String artist, String comment) {
     Firestore.instance
         .collection("feed")
         .document()
         .setData(_buildNewRequest(title, artist, comment))
         .whenComplete(() {
-          _buildRequestCompletionAlert("Request submitted successfully");
-          _clearRequestFields();
+      _buildRequestCompletionAlert("Request submitted successfully");
+      _clearRequestFields();
     }).catchError((e) => _buildRequestCompletionAlert(e));
   }
 
-  Map<String, String> _buildNewRequest(String title, String artist, String comment) {
+  Map<String, String> _buildNewRequest(
+      String title, String artist, String comment) {
     Map<String, String> data = <String, String>{
       "songTitle": title,
       "artist": artist,
@@ -333,16 +401,22 @@ class TapScreenState extends State<TapScreen>{
     return data;
   }
 
-  void _clearRequestFields(){
+  void _clearRequestFields() {
     _commentController.clear();
     _artistController.clear();
     _songTitleController.clear();
   }
 
-  Future _buildLogoRequest() async{
+  Future _buildLogoRequest() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _logoImage = image;
+    });
+  }
+
+  void _buildTitleChangeRequest(String newTitle) {
+    setState(() {
+      clickTitle = newTitle;
     });
   }
 }
