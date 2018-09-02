@@ -99,12 +99,52 @@ class TapScreenState extends State<TapScreen>{
                 child: new Text('OK', style: new TextStyle(color: kACPrimaryText)),
                 onPressed: () {
                   if(_adminController.text == activePin){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FeedScreen()));
+//                    Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                            builder: (context) => FeedScreen()));
+                  _buildAdminActionsAlert();
                     _adminController.clear();
                   }
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<Null> _buildAdminActionsAlert() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return new CupertinoAlertDialog(
+            title: new Text("Administrator?"),
+            content: new Column(
+              children: <Widget>[
+                new Text("Admin access success. What would you like to do?"),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('SHOW FEED', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FeedScreen()));
+                },
+              ),
+              new FlatButton(
+                child: new Text('UPDATE LOGO', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+
+                },
+              ),
+              new FlatButton(
+                child: new Text('Cancel', style: new TextStyle(color: kACPrimaryText)),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               )
             ],
